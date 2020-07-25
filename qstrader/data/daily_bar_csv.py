@@ -240,7 +240,7 @@ class CSVDailyBarDataSource(object):
             return np.NaN
         return ask
 
-    def get_assets_historical_closes(self, start_dt, end_dt, assets):
+    def get_assets_historical_closes(self, start_dt, end_dt, assets, adjusted=False):
         """
         Obtain a multi-asset historical range of closing prices as a DataFrame,
         indexed by timestamp with asset symbols as columns.
@@ -262,7 +262,11 @@ class CSVDailyBarDataSource(object):
         close_series = []
         for asset in assets:
             if asset in self.asset_bar_frames.keys():
-                asset_close_prices = self.asset_bar_frames[asset][['Close']]
+                if adjusted is False:
+                    asset_close_prices = self.asset_bar_frames[asset][['Close']]
+                else:
+                    asset_close_prices = self.asset_bar_frames[asset][['Adj Close']]
+
                 asset_close_prices.columns = [asset]
                 close_series.append(asset_close_prices)
 
