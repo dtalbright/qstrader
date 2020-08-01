@@ -382,7 +382,8 @@ class BacktestTradingSession(TradingSession):
         for event in self.sim_engine:
             # Output the system event and timestamp
             dt = event.ts
-            print("(%s) - %s" % (event.ts, event.event_type))
+            #DADebug
+            #print("(%s) - %s" % (event.ts, event.event_type))
 
             # Update the simulated broker
             self.broker.update(dt)
